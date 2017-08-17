@@ -4,12 +4,16 @@ import entities.TestEntity;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-public class GUI extends JFrame implements Runnable {
+public class GUI extends JFrame implements Runnable, KeyListener {
 
     private static Toolkit tk = Toolkit.getDefaultToolkit();
     public static Dimension SCREENSIZE = new Dimension(tk.getScreenResolution() * 8, tk.getScreenResolution() * 6);
+    private Menu menu;
+    private Game game;
     private TestEntity testEntity;
 
     public static void main(String[] args) {
@@ -28,33 +32,56 @@ public class GUI extends JFrame implements Runnable {
         setSize(SCREENSIZE);
         setLocation((tk.getScreenSize().width - getWidth()) / 2, (tk.getScreenSize().height - getHeight()) / 2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addKeyListener(this);
+
+        menu = new Menu();
+        game = new Game();
+
+        this.add(menu);
+        this.add(game);
+
+        menu.setVisible(true);
+        game.setVisible(false);
 
         testEntity = new TestEntity(getWidth() / 2, getHeight() / 2);
         setVisible(true);
     }
 
-    public void paint(Graphics g) {
-        BufferedImage buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics g2 = buffer.getGraphics();
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
-        Renderer.draw(g2);
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(menu.isVisible()){
+            if(e.getKeyCode() == KeyEvent.VK_SPACE){
+                menu.setVisible(false);
+                game.setVisible(true);
+            }
+        }
 
-        g.drawImage(buffer, 0, 0, null);
-    }
-
-    public void update() {
-        testEntity.update();
-        Renderer.addToQueue(testEntity);
+        if(game.isVisible()){
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                game.setVisible(false);
+                menu.setVisible(true);
+            }
+        }
     }
 
     @Override
+    public void keyReleased(KeyEvent e) {}
+
+    @Override
     public void run() {
-        while(isActive()){
+        while(true){
             try{
-                update();
-                repaint();
-                Thread.sleep(17);
-            } catch(InterruptedException e){e.printStackTrace();}
+                if(menu.isVisible()){
+                    menu.repaint();
+                }
+                if(game.isVisible()){
+                    game.repaint();
+                }
+                Thread.sleep(1000/60);
+            } catch(InterruptedException e) {e.printStackTrace();}
         }
     }
 }
