@@ -6,11 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-public class Menu extends JPanel implements KeyListener {
+public class Pause extends JPanel implements KeyListener {
 
-    private static String TITLE = "BSBH", SUBTITLE = "By Evan Ashley and Justin Foxhoven", START = "Press SPACE To Start";
+    private static String RESUME = "Press SPACE to Resume", EXIT = "Press ESCAPE To Return To Main";
 
-    public Menu(){
+    public Pause(){
         setSize(GUI.SCREENSIZE);
     }
 
@@ -21,18 +21,17 @@ public class Menu extends JPanel implements KeyListener {
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, getWidth(), getHeight());
 
+        g2.setColor(g2.getColor().darker());
+        g2.fillRect(getWidth() / 3, getHeight() / 4, getWidth() / 8, getHeight() / 2);
+        g2.fillRect(2 * getWidth() / 3 - getWidth() / 8, getHeight() / 4, getWidth() / 8, getHeight() / 2);
+
         g2.setColor(Color.BLACK);
-        g2.setFont(new Font(null, Font.BOLD, getHeight() / 3));
-        int stringWidth = g2.getFontMetrics().stringWidth(TITLE);
-        g2.drawString(TITLE, (getWidth() - stringWidth) / 2, getHeight() / 2);
-
         g2.setFont(new Font(null, Font.BOLD, getHeight() / 20));
-        stringWidth = g2.getFontMetrics().stringWidth(SUBTITLE);
-        g2.drawString(SUBTITLE, (getWidth() - stringWidth) / 2, (getHeight() / 2) + (2 * g2.getFont().getSize()));
+        int stringWidth = g2.getFontMetrics().stringWidth(RESUME);
+        g2.drawString(RESUME, (getWidth() - stringWidth) / 2, getHeight() / 2 + g2.getFont().getSize());
 
-        g2.setFont(new Font(null, Font.BOLD, getHeight() / 25));
-        stringWidth = g2.getFontMetrics().stringWidth(START);
-        g2.drawString(START, (getWidth() - stringWidth) / 2, 7 * getHeight() / 8);
+        stringWidth = g2.getFontMetrics().stringWidth(EXIT);
+        g2.drawString(EXIT, (getWidth() - stringWidth) / 2, getHeight() / 2 + 2 * g2.getFont().getSize());
 
         g.drawImage(buffer, 0, 0, null);
     }
@@ -48,6 +47,9 @@ public class Menu extends JPanel implements KeyListener {
         if(isVisible()){
             if(e.getKeyCode() == KeyEvent.VK_SPACE){
                 GUI.playGame();
+            }
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                GUI.showMenu();
             }
         }
     }

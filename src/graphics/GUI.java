@@ -9,8 +9,9 @@ public class GUI extends JFrame implements Runnable {
 
     private static Toolkit tk = Toolkit.getDefaultToolkit();
     public static Dimension SCREENSIZE = new Dimension(tk.getScreenResolution() * 8, tk.getScreenResolution() * 6);
-    private static Menu menu;
     private static Game game;
+    private static Menu menu;
+    private static Pause pause;
     private TestEntity testEntity;
 
     public static void main(String[] args) {
@@ -33,6 +34,7 @@ public class GUI extends JFrame implements Runnable {
 
         menu = new Menu();
         game = new Game();
+        pause = new Pause();
 
         add(menu);
         addKeyListener(menu);
@@ -42,17 +44,28 @@ public class GUI extends JFrame implements Runnable {
         addKeyListener(game);
         game.setVisible(false);
 
+        add(pause);
+        addKeyListener(pause);
+        pause.setVisible(false);
+
         setVisible(true);
     }
 
-    public static void showGame(){
+    public static void playGame(){
         menu.setVisible(false);
+        pause.setVisible(false);
         game.setVisible(true);
     }
 
     public static void showMenu(){
         game.setVisible(false);
+        pause.setVisible(false);
         menu.setVisible(true);
+    }
+
+    public static void pause(){
+        game.setVisible(false);
+        pause.setVisible(true);
     }
 
     @Override
@@ -65,6 +78,9 @@ public class GUI extends JFrame implements Runnable {
                 if(game.isVisible()){
                     game.update();
                     game.repaint();
+                }
+                if(pause.isVisible()){
+                    pause.repaint();
                 }
                 Thread.sleep(1000/60);
             } catch(InterruptedException e) {e.printStackTrace();}

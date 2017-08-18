@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Game extends JPanel implements KeyListener {
 
-    private static String ESCAPE = "Press ESCAPE To Return To Main", INSTRUCTION = "Press +/- To Add/Remove Entities";
+    private static String PAUSE = "Press P To Pause", INSTRUCTION = "Press +/- To Add/Remove Entities";
     private ArrayList<Entity> entities = new ArrayList<>();
 
     public Game(){
@@ -28,8 +28,8 @@ public class Game extends JPanel implements KeyListener {
 
         g2.setColor(g2.getColor().darker());
         g2.setFont(new Font(null, Font.BOLD, getHeight() / 20));
-        int stringWidth = g2.getFontMetrics().stringWidth(ESCAPE);
-        g2.drawString(ESCAPE, (getWidth() - stringWidth) / 2, getHeight() / 2);
+        int stringWidth = g2.getFontMetrics().stringWidth(PAUSE);
+        g2.drawString(PAUSE, (getWidth() - stringWidth) / 2, getHeight() / 2);
 
         g2.setFont(new Font(null, Font.BOLD, getHeight() / 50));
         stringWidth = g2.getFontMetrics().stringWidth(INSTRUCTION);
@@ -55,16 +55,18 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            GUI.showMenu();
-        }
-        if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
-            entities.add(new TestEntity(getWidth() / 2, getHeight() / 2));
-        }
-        if(e.getKeyCode() == KeyEvent.VK_MINUS) {
-            if(entities.size() > 0){
-                entities.remove(entities.size() - 1); //This removal process causes ConcurrentModificationExceptions.
-                                                           // I think we have to be smarter about removal.
+        if(isVisible()){
+            if(e.getKeyCode() == KeyEvent.VK_P) {
+                GUI.pause();
+            }
+            if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
+                entities.add(new TestEntity(getWidth() / 2, getHeight() / 2));
+            }
+            if(e.getKeyCode() == KeyEvent.VK_MINUS) {
+                if(entities.size() > 0){
+                    entities.remove(entities.size() - 1); //This removal process causes ConcurrentModificationExceptions.
+                    // I think we have to be smarter about removal.
+                }
             }
         }
     }
