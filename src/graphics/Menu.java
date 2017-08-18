@@ -2,9 +2,11 @@ package graphics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
-public class Menu extends JPanel {
+public class Menu extends JPanel implements KeyListener {
 
     private static String TITLE = "BSBH", SUBTITLE = "By Evan Ashley and Justin Foxhoven", START = "Press SPACE To Start";
 
@@ -33,5 +35,18 @@ public class Menu extends JPanel {
         g2.drawString(START, (getWidth() - stringWidth) / 2, 7 * getHeight() / 8);
 
         g.drawImage(buffer, 0, 0, null);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            GUI.showGame();
+        }
     }
 }

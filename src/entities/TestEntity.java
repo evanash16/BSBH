@@ -11,6 +11,8 @@ import java.awt.*;
 
 public class TestEntity extends Entity{
 
+    private Color color;
+
     public TestEntity(int x, int y){
         super(x, y);
 
@@ -18,12 +20,14 @@ public class TestEntity extends Entity{
         this.velY = Math.max(25, Math.random() * 50);
         this.width = 100;
         this.height = this.width;
+
+        this.color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
     }
 
     public void draw(Graphics g) {
         super.draw(g);
 
-        g.setColor(new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
+        g.setColor(color);
         g.fillOval((int) (x - width / 2), (int) (y - height / 2), width, height);
     }
 
@@ -31,12 +35,14 @@ public class TestEntity extends Entity{
 
         if (x + velX < 0 || x + velX + width > GUI.SCREENSIZE.width) {
             velX *= -1;
+            color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
         } else {
             x += velX;
         }
 
         if (y + velY < 0 || y + velY + height > GUI.SCREENSIZE.height) {
             velY *= -1;
+            color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
         } else {
             y += velY;
         }

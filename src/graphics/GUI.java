@@ -4,16 +4,13 @@ import entities.TestEntity;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 
-public class GUI extends JFrame implements Runnable, KeyListener {
+public class GUI extends JFrame implements Runnable {
 
     private static Toolkit tk = Toolkit.getDefaultToolkit();
     public static Dimension SCREENSIZE = new Dimension(tk.getScreenResolution() * 8, tk.getScreenResolution() * 6);
-    private Menu menu;
-    private Game game;
+    private static Menu menu;
+    private static Game game;
     private TestEntity testEntity;
 
     public static void main(String[] args) {
@@ -32,43 +29,31 @@ public class GUI extends JFrame implements Runnable, KeyListener {
         setSize(SCREENSIZE);
         setLocation((tk.getScreenSize().width - getWidth()) / 2, (tk.getScreenSize().height - getHeight()) / 2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        addKeyListener(this);
+        setResizable(false); //it makes everything easier
 
         menu = new Menu();
         game = new Game();
 
-        this.add(menu);
-        this.add(game);
-
+        add(menu);
+        addKeyListener(menu);
         menu.setVisible(true);
+
+        add(game);
+        addKeyListener(game);
         game.setVisible(false);
 
-        testEntity = new TestEntity(getWidth() / 2, getHeight() / 2);
         setVisible(true);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(menu.isVisible()){
-            if(e.getKeyCode() == KeyEvent.VK_SPACE){
-                menu.setVisible(false);
-                game.setVisible(true);
-            }
-        }
-
-        if(game.isVisible()){
-            if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-                game.setVisible(false);
-                menu.setVisible(true);
-            }
-        }
+    public static void showGame(){
+        menu.setVisible(false);
+        game.setVisible(true);
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {}
+    public static void showMenu(){
+        game.setVisible(false);
+        menu.setVisible(true);
+    }
 
     @Override
     public void run() {
@@ -78,6 +63,7 @@ public class GUI extends JFrame implements Runnable, KeyListener {
                     menu.repaint();
                 }
                 if(game.isVisible()){
+                    game.update();
                     game.repaint();
                 }
                 Thread.sleep(1000/60);
