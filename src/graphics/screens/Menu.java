@@ -1,4 +1,6 @@
-package graphics;
+package graphics.screens;
+
+import graphics.GUI;
 
 import javax.swing.*;
 import java.awt.*;

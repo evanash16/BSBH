@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
-final class Renderer {
+public final class Renderer {
 
     private static Queue<Entity> renderingQueue = new LinkedList<>();
 

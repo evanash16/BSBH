@@ -1,7 +1,8 @@
-package graphics;
+package graphics.screens;
 
 import entities.Entity;
 import entities.TestEntity;
+import graphics.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class Game extends JPanel implements KeyListener {
 
-    private static String PAUSE = "Press P To Pause", INSTRUCTION = "Press +/- To Add/Remove Entities";
+    private static String PAUSE = "Press ESCAPE To Pause", INSTRUCTION = "Press +/- To Add/Remove Entities";
     private ArrayList<Entity> entities = new ArrayList<>();
 
     public Game(){
@@ -35,7 +36,7 @@ public class Game extends JPanel implements KeyListener {
         stringWidth = g2.getFontMetrics().stringWidth(INSTRUCTION);
         g2.drawString(INSTRUCTION, (getWidth() - stringWidth) / 2, 7 * getHeight() / 8);
 
-        Renderer.draw(g2);
+        graphics.Renderer.draw(g2);
 
         g.drawImage(buffer, 0, 0, null);
     }
@@ -43,7 +44,7 @@ public class Game extends JPanel implements KeyListener {
     public void update(){
         for(Entity e: entities){
             e.update();
-            Renderer.addToQueue(e);
+            graphics.Renderer.addToQueue(e);
         }
     }
 
@@ -56,7 +57,7 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(isVisible()){
-            if(e.getKeyCode() == KeyEvent.VK_P) {
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 GUI.pause();
             }
             if(e.getKeyCode() == KeyEvent.VK_EQUALS) {

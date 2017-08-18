@@ -1,6 +1,9 @@
 package graphics;
 
 import entities.TestEntity;
+import graphics.screens.Game;
+import graphics.screens.Menu;
+import graphics.screens.Pause;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +13,8 @@ public class GUI extends JFrame implements Runnable {
     private static Toolkit tk = Toolkit.getDefaultToolkit();
     public static Dimension SCREENSIZE = new Dimension(tk.getScreenResolution() * 8, tk.getScreenResolution() * 6);
     private static Game game;
-    private static Menu menu;
+    private static graphics.screens.Menu menu;
     private static Pause pause;
-    private TestEntity testEntity;
 
     public static void main(String[] args) {
         Runnable r = new GUI();
@@ -45,7 +47,8 @@ public class GUI extends JFrame implements Runnable {
         game.setVisible(false);
 
         add(pause);
-        addKeyListener(pause);
+        addMouseListener(pause);
+        addMouseMotionListener(pause);
         pause.setVisible(false);
 
         setVisible(true);
