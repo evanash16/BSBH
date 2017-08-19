@@ -26,25 +26,7 @@ public class TestEntity extends Entity{
 
     public void draw(Graphics g) {
         super.draw(g);
-
         g.setColor(color);
         g.fillOval((int) (x - width / 2), (int) (y - height / 2), width, height);
-    }
-
-    public void update() {
-
-        if (x + velX < 0 || x + velX + width > GUI.SCREENSIZE.width) {
-            velX *= -1;
-            color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
-        } else {
-            x += velX;
-        }
-
-        if (y + velY < 0 || y + velY + height > GUI.SCREENSIZE.height) {
-            velY *= -1;
-            color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
-        } else {
-            y += velY;
-        }
     }
 }

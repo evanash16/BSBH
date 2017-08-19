@@ -32,7 +32,7 @@ public class Pause extends JPanel implements MouseListener, MouseMotionListener 
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, getWidth(), getHeight());
 
-        g2.setColor(new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
+        g2.setColor(Color.BLACK);
         g2.setFont(new Font(null, Font.BOLD, getHeight() / 3));
         int stringWidth = g2.getFontMetrics().stringWidth(PAUSE);
         g2.drawString(PAUSE, (getWidth() - stringWidth) / 2, getHeight() / 3);

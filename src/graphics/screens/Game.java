@@ -1,7 +1,8 @@
 package graphics.screens;
 
+import entities.Core;
+import entities.CoreManager;
 import entities.Entity;
-import entities.TestEntity;
 import graphics.GUI;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import graphics.Renderer;
 
 public class Game extends JPanel implements KeyListener {
 
@@ -36,16 +39,13 @@ public class Game extends JPanel implements KeyListener {
         stringWidth = g2.getFontMetrics().stringWidth(INSTRUCTION);
         g2.drawString(INSTRUCTION, (getWidth() - stringWidth) / 2, 7 * getHeight() / 8);
 
-        graphics.Renderer.draw(g2);
+        Renderer.draw(g2);
 
         g.drawImage(buffer, 0, 0, null);
     }
 
     public void update(){
-        for(Entity e: entities){
-            e.update();
-            graphics.Renderer.addToQueue(e);
-        }
+        CoreManager.update();
     }
 
     @Override
@@ -61,12 +61,11 @@ public class Game extends JPanel implements KeyListener {
                 GUI.pause();
             }
             if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
-                entities.add(new TestEntity(getWidth() / 2, getHeight() / 2));
+                CoreManager.addCore(new Core(getWidth() / 2, getHeight() / 2, getWidth() / 20));
             }
             if(e.getKeyCode() == KeyEvent.VK_MINUS) {
-                if(entities.size() > 0){
-                    entities.remove(entities.size() - 1); //This removal process causes ConcurrentModificationExceptions.
-                    // I think we have to be smarter about removal.
+                if(!CoreManager.isEmpty()){
+                    CoreManager.removeCore();
                 }
             }
         }
