@@ -4,17 +4,32 @@ import java.awt.*;
 
 public class Core extends Entity {
 
-    protected int radius;
+    private int radius;
+    private Color color;
+    private Safezone zone;
 
     public Core(int x, int y, int radius) {
-        super(x, y);
+        super(x, y, Math.max(25, Math.random() * 50), Math.max(25, Math.random() * 50));
+        this.color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
         this.radius = radius;
-        this.velX = Math.max(25, Math.random() * 50);
-        this.velY = Math.max(25, Math.random() * 50);
+        zone = new Safezone(this);
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.GRAY);
-        g.fillOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
+
+        if(zone != null){
+            zone.draw(g);
+        }
+
+        g.setColor(getColor());
+        g.fillOval((int) (getX() - radius), (int) (getY() - radius), 2 * radius, 2 * radius);
     }
+
+    public int getRadius() {
+        return radius;
+    }
+    public Color getColor() {
+        return color;
+    }
+
 }

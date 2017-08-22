@@ -6,12 +6,19 @@ import java.awt.*;
 
 public class Entity {
 
-    protected int width, height;
-    protected double x, y, velX, velY;
+    private int width, height;
+    private double x, y, velX, velY;
 
     public Entity(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public Entity(int x, int y, double velX, double velY){
+        this.x = x;
+        this.y = y;
+        this.velX = velX;
+        this.velY = velY;
     }
 
     public void draw(Graphics g){}
@@ -28,5 +35,37 @@ public class Entity {
         } else {
             y += velY;
         }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public void setSize(int width, int height) {this.width = width; this.height = height;}
+    public double getX() {
+        return x;
+    }
+    public void setX(double x) {
+        this.x = x;
+    }
+    public double getY() {
+        return y;
+    }
+    public void setY(double y) {
+        this.y = y;
+    }
+    public double getVelX() {
+        return velX;
+    }
+    public void setVelX(double velX) {
+        this.velX = velX;
+    }
+    public double getVelY() {
+        return velY;
+    }
+    public void setVelY(double velY) {
+        this.velY = velY;
     }
 }

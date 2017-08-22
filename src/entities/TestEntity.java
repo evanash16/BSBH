@@ -5,8 +5,6 @@ THIS IS A TEST ENTITY. THIS WILL NOT MAKE IT INTO THE FINAL GAME.
 PLEASE BURN THIS CLASS AT THE STAKE. I REPEAT. THIS IS A TEST ENTITY.
  */
 
-import graphics.GUI;
-
 import java.awt.*;
 
 public class TestEntity extends Entity{
@@ -14,12 +12,8 @@ public class TestEntity extends Entity{
     private Color color;
 
     public TestEntity(int x, int y){
-        super(x, y);
-
-        this.velX = Math.max(25, Math.random() * 50);
-        this.velY = Math.max(25, Math.random() * 50);
-        this.width = 100;
-        this.height = this.width;
+        super(x, y, Math.max(25, Math.random() * 50), Math.max(25, Math.random() * 50));
+        setSize(100, 100);
 
         this.color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
     }
@@ -27,6 +21,6 @@ public class TestEntity extends Entity{
     public void draw(Graphics g) {
         super.draw(g);
         g.setColor(color);
-        g.fillOval((int) (x - width / 2), (int) (y - height / 2), width, height);
+        g.fillOval((int) (getX() - getWidth() / 2), (int) (getY() - getHeight() / 2), getWidth(), getHeight());
     }
 }

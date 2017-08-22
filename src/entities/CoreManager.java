@@ -27,7 +27,7 @@ public final class CoreManager {
             Renderer.addToQueue(c1);
             for(int j = i + 1; j < cores.size(); j++){
                 Core c2 = cores.get(j);
-                if(Math.sqrt(Math.pow(c2.x - c1.x, 2) + Math.pow(c2.y - c1.y, 2)) < c1.radius + c2.radius){
+                if(Math.sqrt(Math.pow(c2.getX() - c1.getX(), 2) + Math.pow(c2.getX() - c1.getX(), 2)) < c1.getRadius() + c2.getRadius()){
                     System.out.println("Collision"); //We will put collision here
                 }
             }
