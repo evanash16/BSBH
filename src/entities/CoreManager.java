@@ -29,8 +29,8 @@ public final class CoreManager {
             Renderer.addToQueue(c1);
             for(int j = i + 1; j < cores.size(); j++){
                 Core c2 = cores.get(j);
-                if(Math.sqrt(Math.pow(c2.getX() - c1.getX(), 2) + Math.pow(c2.getX() - c1.getX(), 2)) < c1.getRadius() + c2.getRadius()){
-                    //We will put collision here; printing out to console is expensive, so  I stopped.
+                if(Interactions.checkCoreCollision(c1, c2)){
+                    Interactions.resolveCollision(c1, c2);
                 }
             }
         }

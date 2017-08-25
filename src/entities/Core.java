@@ -6,10 +6,11 @@ public class Core extends Entity {
 
     private int radius;
     private Color color;
-    private static final int VELOCITY = 10;
+    private static final int VELOCITY = 5;
+    private static final int MASS = 1;
 
     public Core(double x, double y, int radius) {
-        super(x, y, Math.random() * 2 * Math.PI, VELOCITY);
+        super(x, y, Math.random() * 2 * Math.PI, VELOCITY, MASS);
         this.color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
         this.radius = radius;
         SafezoneManager.addSafezone(this);

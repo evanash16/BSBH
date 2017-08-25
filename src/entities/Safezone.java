@@ -11,7 +11,7 @@ public class Safezone extends Entity {
     private ArrayList<Safezone> intersections;
 
     public Safezone(Core child) {
-        super(child.getX(), child.getY(), child.getAngle(), child.getVelMag());
+        super(child.getX(), child.getY(), child.getAngle(), child.getVelMag(), child.getMass());
         this.radius = 2 * child.getRadius();
         this.child = child;
         this.intersections = new ArrayList<Safezone>();

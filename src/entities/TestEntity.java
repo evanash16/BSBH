@@ -12,7 +12,7 @@ public class TestEntity extends Entity{
     private Color color;
 
     public TestEntity(int x, int y){
-        super(x, y, Math.max(25, Math.random() * 50), Math.max(25, Math.random() * 50));
+        super(x, y, Math.max(25, Math.random() * 50), Math.max(25, Math.random() * 50), 1);
         setSize(100, 100);
 
         this.color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
