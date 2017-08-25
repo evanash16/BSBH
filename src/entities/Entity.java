@@ -7,23 +7,24 @@ import java.awt.*;
 public class Entity {
 
     private int width, height;
-    private double x, y, velX, velY;
+    private double x, y, angle, velMag;
 
-    public Entity(int x, int y){
+    public Entity(double x, double y){
         this.x = x;
         this.y = y;
     }
 
-    public Entity(int x, int y, double velX, double velY){
+    public Entity(double x, double y, double angle, double velMag){
         this.x = x;
         this.y = y;
-        this.velX = velX;
-        this.velY = velY;
+        this.angle = angle;
+        this.velMag = velMag;
     }
 
     public void draw(Graphics g){}
     public void update() {
 
+        double velX = Math.cos(angle) * velMag, velY = Math.sin(angle) * velMag;
         if (x + velX < 0 || x + velX + width > GUI.SCREENSIZE.width) {
             velX *= -1;
         } else {
@@ -35,6 +36,7 @@ public class Entity {
         } else {
             y += velY;
         }
+        angle = Math.atan2(velY, velX);
     }
 
     public int getWidth() {
@@ -43,7 +45,9 @@ public class Entity {
     public int getHeight() {
         return height;
     }
-    public void setSize(int width, int height) {this.width = width; this.height = height;}
+    public void setSize(int width, int height) {
+        this.width = width; this.height = height;
+    }
     public double getX() {
         return x;
     }
@@ -56,16 +60,12 @@ public class Entity {
     public void setY(double y) {
         this.y = y;
     }
-    public double getVelX() {
-        return velX;
+    public double getVelMag() { return velMag; }
+    public void setVelMag(double velMag) { this.velMag = velMag; }
+    public double getAngle() {
+        return angle;
     }
-    public void setVelX(double velX) {
-        this.velX = velX;
-    }
-    public double getVelY() {
-        return velY;
-    }
-    public void setVelY(double velY) {
-        this.velY = velY;
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
 }

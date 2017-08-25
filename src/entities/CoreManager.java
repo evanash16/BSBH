@@ -13,7 +13,9 @@ public final class CoreManager {
     }
 
     public static void removeCore(){
-        cores.remove(cores.get(cores.size() - 1));
+        Core c = cores.get(cores.size() - 1);
+        SafezoneManager.removeSafezone(c);
+        cores.remove(c);
     }
 
     public static boolean isEmpty(){
@@ -28,7 +30,7 @@ public final class CoreManager {
             for(int j = i + 1; j < cores.size(); j++){
                 Core c2 = cores.get(j);
                 if(Math.sqrt(Math.pow(c2.getX() - c1.getX(), 2) + Math.pow(c2.getX() - c1.getX(), 2)) < c1.getRadius() + c2.getRadius()){
-                    System.out.println("Collision"); //We will put collision here
+                    //We will put collision here; printing out to console is expensive, so  I stopped.
                 }
             }
         }

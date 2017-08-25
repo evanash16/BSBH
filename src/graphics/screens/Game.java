@@ -3,6 +3,7 @@ package graphics.screens;
 import entities.Core;
 import entities.CoreManager;
 import entities.Entity;
+import entities.SafezoneManager;
 import graphics.GUI;
 
 import javax.swing.*;
@@ -17,7 +18,6 @@ import graphics.Renderer;
 public class Game extends JPanel implements KeyListener {
 
     private static String PAUSE = "Press ESCAPE To Pause", INSTRUCTION = "Press +/- To Add/Remove Entities";
-    private ArrayList<Entity> entities = new ArrayList<>();
 
     public Game(){
         setSize(GUI.SCREENSIZE);
@@ -45,7 +45,8 @@ public class Game extends JPanel implements KeyListener {
     }
 
     public void update(){
-        CoreManager.update();
+        SafezoneManager.update();
+        CoreManager.update(); //also draws the entities...on the fence about a draw method for consistency?
     }
 
     @Override
