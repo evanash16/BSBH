@@ -22,11 +22,16 @@ public final class CoreManager {
         return cores.isEmpty();
     }
 
+    public static void draw(){
+        for(Core c: cores){
+            Renderer.addToQueue(c);
+        }
+    }
+
     public static void update(){
         for(int i = 0; i < cores.size(); i++){
             Core c1 = cores.get(i);
             c1.update();
-            Renderer.addToQueue(c1);
             for(int j = i + 1; j < cores.size(); j++){
                 Core c2 = cores.get(j);
                 if(Interactions.checkCoreCollision(c1, c2)){

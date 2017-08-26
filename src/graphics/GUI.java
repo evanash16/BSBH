@@ -18,8 +18,10 @@ public class GUI extends JFrame implements Runnable {
 
     public static void main(String[] args) {
         Runnable r = new GUI();
-        Thread t = new Thread(r);
-        t.start();
+        Thread draw = new Thread(r, "draw");
+        Thread update = new Thread(r, "update");
+        draw.start();
+        update.start();
     }
 
     public GUI() {
@@ -74,16 +76,21 @@ public class GUI extends JFrame implements Runnable {
     @Override
     public void run() {
         while(true){
+            Thread t = Thread.currentThread();
             try{
-                if(menu.isVisible()){
-                    menu.repaint();
-                }
-                if(game.isVisible()){
+                if("draw".equals(t.getName())){
+                    if(menu.isVisible()){
+                        menu.repaint();
+                    }
+                    if(game.isVisible()){
+                        game.draw();
+                        game.repaint();
+                    }
+                    if(pause.isVisible()){
+                        pause.repaint();
+                    }
+                } else if("update".equals(t.getName())){
                     game.update();
-                    game.repaint();
-                }
-                if(pause.isVisible()){
-                    pause.repaint();
                 }
                 Thread.sleep(1000/60);
             } catch(InterruptedException e) {e.printStackTrace();}

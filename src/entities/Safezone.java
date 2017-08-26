@@ -7,7 +7,6 @@ public class Safezone extends Entity {
 
     private Core child;
     private int radius;
-    private Color color;
     private ArrayList<Safezone> intersections;
 
     public Safezone(Core child) {
@@ -32,14 +31,25 @@ public class Safezone extends Entity {
         setVelMag(child.getVelMag());
     }
 
-    public void intersect(Safezone s) {
-        intersections.add(s);
+    public void addIntersection(Safezone s) {
+        if(!intersections.contains(s)){
+            intersections.add(s);
+        }
     }
-    public void removeIntersection(Safezone s){
-        intersections.remove(s);
-    }
+    public void removeIntersection(Safezone s){ intersections.remove(s); }
     private Color mixColors() {
-        return Color.WHITE;
+        Color c = getColor();
+        int red = c.getRed(), green = c.getGreen(), blue = c.getBlue();
+        for(Safezone s: intersections){
+            c = s.getColor();
+            red += c.getRed();
+            green += c.getGreen();
+            blue += c.getBlue();
+        }
+        red /= intersections.size() + 1;
+        green /= intersections.size() + 1;
+        blue /= intersections.size() + 1;
+        return new Color(red, green, blue);
     }
 
     public Core getChild() { return child; }
@@ -47,7 +57,6 @@ public class Safezone extends Entity {
         return radius;
     }
     public Color getColor() {
-        return color;
+        return child.getColor();
     }
-    public void setColor(Color color) { this.color = color; }
 }

@@ -20,15 +20,24 @@ public final class SafezoneManager {
         }
     }
 
+    public static void draw(){
+        for(Safezone s: safezones){
+            Renderer.addToQueue(s);
+        }
+    }
+
     public static void update() {
         for(int i = 0; i < safezones.size(); i++){
             Safezone s1 = safezones.get(i);
             s1.update();
-            Renderer.addToQueue(s1);
             for(int j = i + 1; j < safezones.size(); j++){
                 Safezone s2 = safezones.get(j);
-                if(Math.sqrt(Math.pow(s2.getX() - s1.getX(), 2) + Math.pow(s2.getY() - s1.getY(), 2)) < s1.getRadius() + s2.getRadius()){
-                    // Put intersection code here
+                if(Interactions.checkSafezoneCollision(s1, s2)){
+                    s1.addIntersection(s2);
+                    s2.addIntersection(s1);
+                } else {
+                    s1.removeIntersection(s2);
+                    s2.removeIntersection(s1);
                 }
             }
         }

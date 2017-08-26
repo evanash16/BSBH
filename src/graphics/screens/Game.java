@@ -46,7 +46,12 @@ public class Game extends JPanel implements KeyListener {
 
     public void update(){
         SafezoneManager.update();
-        CoreManager.update(); //also draws the entities...on the fence about a draw method for consistency?
+        CoreManager.update();
+    }
+
+    public void draw(){
+        SafezoneManager.draw();
+        CoreManager.draw();
     }
 
     @Override
