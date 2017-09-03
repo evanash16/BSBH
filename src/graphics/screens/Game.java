@@ -67,7 +67,7 @@ public class Game extends JPanel implements KeyListener {
                 GUI.pause();
             }
             if(e.getKeyCode() == KeyEvent.VK_EQUALS) {
-                CoreManager.addCore(new Core(getWidth() / 2, getHeight() / 2, getWidth() / 20));
+                CoreManager.addCore(new Core((int) (Math.random() * getWidth()), (int) (Math.random() * getHeight()), getWidth() / 30));
             }
             if(e.getKeyCode() == KeyEvent.VK_MINUS) {
                 if(!CoreManager.isEmpty()){

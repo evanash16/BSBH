@@ -2,6 +2,8 @@ package entities;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Safezone extends Entity {
 
@@ -11,7 +13,7 @@ public class Safezone extends Entity {
 
     public Safezone(Core child) {
         super(child.getX(), child.getY(), child.getAngle(), child.getVelMag(), child.getMass());
-        this.radius = 2 * child.getRadius();
+        this.radius = 3 * child.getRadius();
         this.child = child;
         this.intersections = new ArrayList<Safezone>();
     }
@@ -38,20 +40,35 @@ public class Safezone extends Entity {
     }
     public void removeIntersection(Safezone s){ intersections.remove(s); }
     private Color mixColors() {
-        Color c = getColor();
-        int red = c.getRed(), green = c.getGreen(), blue = c.getBlue();
-        for(Safezone s: intersections){
-            c = s.getColor();
-            red += c.getRed();
-            green += c.getGreen();
-            blue += c.getBlue();
-        }
-        red /= intersections.size() + 1;
-        green /= intersections.size() + 1;
-        blue /= intersections.size() + 1;
-        return new Color(red, green, blue);
+        HashMap<String, Integer> colorSum = sumColors(new ArrayList<>());
+        int red = colorSum.get("red");
+        int green = colorSum.get("green");
+        int blue = colorSum.get("blue");
+        int total = colorSum.get("visited");
+        return new Color(red / total, green / total, blue / total);
     }
-
+    private HashMap<String, Integer> sumColors(ArrayList<Safezone> visited) {
+        HashMap<String, Integer> colorSum = new HashMap<String, Integer>() {{
+            put("red", 0);
+            put("green", 0);
+            put("blue", 0);
+            put("visited", 0);
+        }};
+        colorSum.put("red", colorSum.get("red") + getColor().getRed());
+        colorSum.put("green", colorSum.get("green") + getColor().getGreen());
+        colorSum.put("blue", colorSum.get("blue") + getColor().getBlue());
+        visited.add(this);
+        for(Safezone s: intersections){
+            if(!visited.contains(s)){
+                Map<String, Integer> additionalSum = s.sumColors(visited);
+                colorSum.put("red", colorSum.get("red") + additionalSum.get("red"));
+                colorSum.put("green", colorSum.get("green") + additionalSum.get("green"));
+                colorSum.put("blue", colorSum.get("blue") + additionalSum.get("blue"));
+            }
+        }
+        colorSum.put("visited", visited.size());
+        return colorSum;
+    }
     public Core getChild() { return child; }
     public int getRadius() {
         return radius;
