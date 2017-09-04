@@ -4,18 +4,19 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Safezone extends Entity {
 
     private Core child;
     private int radius;
-    private ArrayList<Safezone> intersections;
+    private CopyOnWriteArrayList<Safezone> intersections;
 
     public Safezone(Core child) {
         super(child.getX(), child.getY(), child.getAngle(), child.getVelMag(), child.getMass());
         this.radius = 3 * child.getRadius();
         this.child = child;
-        this.intersections = new ArrayList<Safezone>();
+        this.intersections = new CopyOnWriteArrayList<>();
     }
 
     public void draw(Graphics g) {

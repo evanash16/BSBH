@@ -2,11 +2,11 @@ package entities;
 
 import graphics.Renderer;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class SafezoneManager {
 
-    private static ArrayList<Safezone> safezones = new ArrayList<>();
+    private static CopyOnWriteArrayList<Safezone> safezones = new CopyOnWriteArrayList<>();
 
     public static void addSafezone(Core c){
         safezones.add(new Safezone(c));

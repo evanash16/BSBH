@@ -4,11 +4,10 @@ import entities.Entity;
 
 import java.awt.*;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public final class Renderer {
 
-    private static Queue<Entity> renderingQueue = new LinkedList<>();
+    private static LinkedList<Entity> renderingQueue = new LinkedList<>();
 
     public static void addToQueue(Entity e){
         renderingQueue.add(e);

@@ -2,11 +2,11 @@ package entities;
 
 import graphics.Renderer;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public final class CoreManager {
 
-    private static ArrayList<Core> cores = new ArrayList<>();
+    private static CopyOnWriteArrayList<Core> cores = new CopyOnWriteArrayList<>();
 
     public static void addCore(Core c){
         cores.add(c);
