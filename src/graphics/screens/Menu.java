@@ -1,7 +1,9 @@
 package graphics.screens;
 
 import graphics.GUI;
+import music.MusicPlayer;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,6 +16,9 @@ public class Menu extends JPanel implements KeyListener {
 
     public Menu(){
         setSize(GUI.SCREENSIZE);
+        final Clip clip = MusicPlayer.loadClip("main.wav");
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
     }
 
     public void paint(Graphics g){
