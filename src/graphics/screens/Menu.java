@@ -13,12 +13,12 @@ import java.awt.image.BufferedImage;
 public class Menu extends JPanel implements KeyListener {
 
     private static String TITLE = "BSBH", SUBTITLE = "By Evan Ashley and Justin Foxhoven", START = "Press SPACE To Start";
+    private Clip mainTheme = MusicPlayer.loadClip("main.wav");
 
     public Menu(){
         setSize(GUI.SCREENSIZE);
-        final Clip clip = MusicPlayer.loadClip("main.wav");
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-        clip.start();
+        mainTheme.loop(Clip.LOOP_CONTINUOUSLY);
+        mainTheme.start();
     }
 
     public void paint(Graphics g){
@@ -42,6 +42,14 @@ public class Menu extends JPanel implements KeyListener {
         g2.drawString(START, (getWidth() - stringWidth) / 2, 7 * getHeight() / 8);
 
         g.drawImage(buffer, 0, 0, null);
+    }
+
+    public void setVisible(boolean visible){
+        super.setVisible(visible);
+        if(visible) {
+            mainTheme.setFramePosition(0); mainTheme.start();}
+        else {
+            mainTheme.stop();}
     }
 
     @Override
